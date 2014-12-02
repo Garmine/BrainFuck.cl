@@ -22,7 +22,7 @@ command: read 64 bytes from /dev/null, write to tape
 Full list of API codes:
 =======================
 
-00 - unused
+00 - reserved
 
 01 - access OpenCL API
 	00 - init API
