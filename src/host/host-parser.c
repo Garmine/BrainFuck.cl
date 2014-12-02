@@ -38,7 +38,7 @@ int parse(Host* host, const char* code){
 			case '-':
 				sgn=-1;
 			case '+':
-				if (last!=DATA) seti(host->instr, ++pc, DATA);
+				if (last!=DATA) seti(instr, ++pc, DATA);
 				last=DATA;
 				param[pc] += sgn;
 				break;
@@ -47,7 +47,7 @@ int parse(Host* host, const char* code){
 			case '<':
 				sgn=-1;
 			case '>':
-				if (last!=PTR) seti(host->instr, ++pc,  PTR);
+				if (last!=PTR) seti(instr, ++pc,  PTR);
 				last=PTR;
 				param[pc] += sgn;
 				break;
@@ -56,7 +56,7 @@ int parse(Host* host, const char* code){
 			case '.':
 				sgn=-1;
 			case ',':
-				if (last!=IO || sgn*param[pc]<0) seti(host->instr, ++pc, IO);
+				if (last!=IO || sgn*param[pc]<0) seti(instr, ++pc, IO);
 				last=IO;
 				param[pc] += sgn;
 				break;
@@ -64,7 +64,7 @@ int parse(Host* host, const char* code){
 			// GOTO
 			case '[':
 				last=JMP;
-				seti(host->instr, ++pc, JMP);
+				seti(instr, ++pc, JMP);
 				if(si==STACK_SIZE-1){
 					error("parse()", "stack is full!");
 					return 0;
@@ -74,7 +74,7 @@ int parse(Host* host, const char* code){
 
 			case ']':
 				last=JMP;
-				seti(host->instr, ++pc, JMP);
+				seti(instr, ++pc, JMP);
 				if(si<0){
 					error("parse()", "] without opening [");
 					return 0;

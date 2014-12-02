@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include "util.h"
+#include "host-parser.h"
 
 Host* initHost(const char* src, const int dataSize){
 	// allocate new host

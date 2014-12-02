@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "host.h"
+#include "host-interpreter.h"
 
 // Prints "Schorbino!\n" to stdout
 const char* code = "\
@@ -17,7 +18,7 @@ const char* code = "\
 >>>++[>+++++<-]>.                10=\n";
 
 int main(int argc, char** argv){
-	Host* host = initHost(code);
+	Host* host = initHost(code, 128);
 	run(host);
 	return 0;
 }
