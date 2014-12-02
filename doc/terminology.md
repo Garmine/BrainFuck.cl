@@ -1,12 +1,12 @@
 Terminology
 ===========
 
-Kernel - either the OpenCL kernel code (the BF interpreter), or
+Kernel - either the OpenCL kernel code (the BF interpreter), or<br>
        - the compiled BF code (usually called "BrainFuck kernel")
 
 Tape - data array, either associated with the host or ONE device
 
-Thread - instantiated BF kernel associated with ONE tape and ONE device 
+Thread - instantiated BF kernel associated with ONE tape and ONE device<br>
        - (it's status is either NOT_STARTED, RUNNING, READY)
 
 Host - the main thread running on the C interpreter on the CPU

@@ -22,7 +22,7 @@ command: read 64 bytes from /dev/null, write to tape
 Full list of API codes:
 =======================
 
-00 - reserved
+`00 - reserved
 
 01 - access OpenCL API
 	00 - init API
@@ -82,7 +82,7 @@ Full list of API codes:
 	07 - flush I/O
 	08 - close I/O
 
-anything else - send "ESC ESC char" to STDOUT
+anything else - send "ESC ESC char" to STDOUT`
 
 - - -
 
