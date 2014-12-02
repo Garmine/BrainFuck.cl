@@ -20,32 +20,32 @@ DATA tape:
 Assigned to a BF kernel before running. Intruction tapes are static, created on
 compilation. PTR is 0 on start, INSTR can be set to any non-negative integer.
 
-Instruction tapes:
+#Instruction tapes:
 
-IDATA tape: stores data increments and decrements<br>
-IPTR  tape: stores PTR increments and decrements<br>
-IJMP  tape: stores INSTR increments and decrements<br>
+	IDATA tape: stores data increments and decrements
+	IPTR  tape: stores PTR increments and decrements
+	IJMP  tape: stores INSTR increments and decrements
 
-Pointers/counters:
+#Pointers/counters:
 
-PTR   counter: index to the data tape<br>
-INSTR counter: index to the instruction tapes<br>
+	PTR   counter: index to the data tape
+	INSTR counter: index to the instruction tapes
 
 - - -
 
-Order of instructions:
+#Order of instructions:
 
-00 - DATA[PTR] += IDATA[INSTR]<br>
+	00 - DATA[PTR] += IDATA[INSTR]
 
-01 - PTR += IPTR[INSTR]<br>
+	01 - PTR += IPTR[INSTR]
 
-02 - IJMP[INSTR]:<br>
-	JMP = IJMP[INSTR]<br>
-	if JMP < 0 (']'):<br>
-		if DATA[PTR] != 0: INSTR += IJMP[INSTR]<br>
-	if JMP > 0 ('['):<br>
-		if DATA[PTR] == 0: INSTR += IJMP[INSTR]<br>
-	if JMP = 0: do nothing<br>
+	02 - IJMP[INSTR]:
+		JMP = IJMP[INSTR]
+		if JMP < 0 (']'):
+			if DATA[PTR] != 0: INSTR += IJMP[INSTR]
+		if JMP > 0 ('['):
+			if DATA[PTR] == 0: INSTR += IJMP[INSTR]
+		if JMP = 0: do nothing
 
-03 - INSTR++
+	03 - INSTR++
 
