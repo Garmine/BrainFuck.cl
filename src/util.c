@@ -43,6 +43,7 @@ char* readFile(const char* fileName){
 	fclose(f);
 
 	// return read in file
+	buffer[size]='\0';
 	return buffer;
 }
 
