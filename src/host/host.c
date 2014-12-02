@@ -26,7 +26,7 @@ Host* initHost(const char* src, const int dataSize){
 	}
 
 	// allocate memory for data tape
-	h->data = (char*)malloc(sizeof(char)*dataSize);
+	h->data = (char*)calloc(dataSize,sizeof(char));
 	if(!h->data){
 		error("initHost()", "failed to initalize data tape");
 		freeHost(h);
