@@ -11,9 +11,9 @@ DEBUG_BIN = $(BINDIR)/brainfuck-cl-debug
 SRCDIR = src
 SRCDIR_HOST = $(SRCDIR)/host
 SRCDIR_DEVICE = $(SRCDIR)/device
-SRCDIR_SYSCALL = $(SRCDIR)/syscall
+SRCDIR_BFAPI = $(SRCDIR)/bfapi
 SRCDIR_ALL  = $(SRCDIR) $(SRCDIR_HOST)
-SRCDIR_ALL += $(SRCDIR_DEVICE) $(SRCDIR_SYSCALL)
+SRCDIR_ALL += $(SRCDIR_DEVICE) $(SRCDIR_BFAPI)
 
 # Compilation directories
 ODIR = build
@@ -25,7 +25,7 @@ MAIN_FILES = bfio main util
 HOST_FILES  = host-debug host host-instructions 
 HOST_FILES += host-interpreter host-parser
 DEVICE_FILES = #device-parser
-SYSCALL_FILES = #syscall opencl_api file_api streaming_file_api
+BFAPI_FILES = #opencl_api file_api streaming_file_api
 
 # Libraries
 LIBS = m
@@ -38,13 +38,13 @@ LIBS = m
 SRC_FILES  = $(addsuffix .c, $(addprefix $(SRCDIR)/, $(MAIN_FILES)))
 SRC_FILES += $(addsuffix .c, $(addprefix $(SRCDIR_HOST)/, $(HOST_FILES)))
 SRC_FILES += $(addsuffix .c, $(addprefix $(SRCDIR_DEVICE)/, $(DEVICE_FILES)))
-SRC_FILES += $(addsuffix .c, $(addprefix $(SRCDIR_SYSCALL)/, $(SYSCALL_FILES)))
+SRC_FILES += $(addsuffix .c, $(addprefix $(SRCDIR_BFAPI)/, $(BFAPI_FILES)))
 
 # Compiled files
 OFILES  = $(addsuffix .o, $(MAIN_FILES))
 OFILES += $(addsuffix .o, $(HOST_FILES))
 OFILES += $(addsuffix .o, $(DEVICE_FILES))
-OFILES += $(addsuffix .o, $(SYSCALL_FILES))
+OFILES += $(addsuffix .o, $(BFAPI_FILES))
 OFILES_REL = $(addprefix $(ODIR_REL)/, $(OFILES))
 OFILES_DBG = $(addprefix $(ODIR_DBG)/, $(OFILES))
 
@@ -54,7 +54,7 @@ LFLAGS = $(addprefix -l, $(LIBS))
 HFLAGS  = $(addprefix -I, $(SRCDIR))
 HFLAGS += $(addprefix -I, $(SRCDIR_HOST))
 HFLAGS += $(addprefix -I, $(SRCDIR_DEVICE))
-HFLAGS += $(addprefix -I, $(SRCDIR_SYSCALL))
+HFLAGS += $(addprefix -I, $(SRCDIR_BFAPI))
 # Compiler flags
 CFLAGS = -Wall 
 # Extensions - like, why not?
