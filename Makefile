@@ -39,7 +39,7 @@ SRC_FILES += $(addprefix $(SRCDIR_DEVICE)/, $(DEVICE_FILES))
 SRC_FILES += $(addprefix $(SRCDIR_SYSCALL)/, $(SYSCALL_FILES))
 
 # Compiled files
-OFILES = $(addsuffic .o, $(SRC_FILES))
+OFILES = $(addsuffix .o, $(MAIN_FILES))
 OFILES_REL = $(addprefix $(ODIR_REL), $(OFILES))
 OFILES_DBG = $(addprefix $(ODIR_DBG), $(OFILES))
 
