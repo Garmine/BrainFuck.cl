@@ -1,18 +1,23 @@
 #ifndef BFIO_H
 #define BFIO_H
 
-typedef int(*SyscallOut)(char);
-typedef int(*SyscallIn)(char*);
+#include "host.h"
+
+typedef int(*BfOut)(char);
+typedef int(*BfIn)(char*);
+
 typedef struct{
 	int code;
-	SyscallOut out;
-	SyscallIn in;
-}Syscall;
+	BfOut out;
+	BfIn in;
+}Api;
 
-int addSyscall(Syscall c);
+int initBfio();
 
-char input();
-void output(char c);
+int addApi(Api api);
+
+char input(Host* host);
+void output(Host* host, char c);
 
 #endif
 
