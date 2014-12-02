@@ -62,14 +62,9 @@ EFLAGS = -msse -msse2 -msse3 -mmmx -m3dnow
 
 # ----- ----- ----- ----- ----- ----- #
 
-.PHONY: clean help debug
+.PHONY: clean help
 
 all: rel
-
-debug:
-	@echo $(ODIR_REL)
-	@echo $(OFILES_REL)
-	@echo $(SRC_FILES)
 
 # ----- #
 
