@@ -54,10 +54,10 @@ void run(Host* host){
 				p=param[pc];
 				if(p>0){
 					DBG(printf(" - READ: \n"));
-					while (p--) *ptr=input();
+					while (p--) *ptr=input(host);
 				}else{
 					DBG(printf(" - WRITE '"));
-					while (p++) output(*ptr);
+					while (p++) output(host, *ptr);
 					DBG(printf("'\n"));
 				}
 				break;

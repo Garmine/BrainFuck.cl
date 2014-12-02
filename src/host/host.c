@@ -34,6 +34,11 @@ Host* initHost(const char* src, const int dataSize){
 	}
 	h->dLen = dataSize;
 
+	// STDIO thingies
+	h->esc=0;
+	h->out=NULL;
+	h->in=NULL;
+
 	// w00t
 	return h;
 }
