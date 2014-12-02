@@ -12,7 +12,7 @@ earlier ones. By default 0 means success, anything else is an error code.
 WARNING: some calls return 0 ON ERROR, always check the documentation first!
 Simply read one char from STDIN to discard the latest return code.
 
-#Example:
+###Example:
 
 	stdout: ESC ESC 02 01 "/dev/null" 0 64
 	command: read 64 bytes from /dev/null, write to tape

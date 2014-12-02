@@ -15,25 +15,26 @@ can function as a many-core BrainFuck CPU.
 
 - - -
 
-DATA tape:
+###DATA tape:
 
 Assigned to a BF kernel before running. Intruction tapes are static, created on
 compilation. PTR is 0 on start, INSTR can be set to any non-negative integer.
 
-#Instruction tapes:
+###Instruction tapes:
 
 	IDATA tape: stores data increments and decrements
 	IPTR  tape: stores PTR increments and decrements
 	IJMP  tape: stores INSTR increments and decrements
 
-#Pointers/counters:
+###Pointers/counters:
 
 	PTR   counter: index to the data tape
 	INSTR counter: index to the instruction tapes
 
 - - -
 
-#Order of instructions:
+Order of instructions:
+======================
 
 	00 - DATA[PTR] += IDATA[INSTR]
 
