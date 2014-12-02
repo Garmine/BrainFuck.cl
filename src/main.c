@@ -7,6 +7,7 @@
 #include "host-interpreter.h"
 
 int main(int argc, char** argv){
+	// Init magic
 	if(!initBrainfuckDotCl())
 		fatalError("Failed to initialize Brainfuck.cl");
 
