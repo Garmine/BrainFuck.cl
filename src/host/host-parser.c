@@ -1,8 +1,9 @@
-#include "parser.h"
+#include "host-parser.h"
 
-#include "instructions.h"
+#include "util.h"
+#include "host-instructions.h"
 
-#include <stdlib.h>
+#include <string.h>
 //#include <limits.h>
 
 // stack size for parsing [ and ]
@@ -37,7 +38,7 @@ int parse(Host* host, const char* code){
 			case '-':
 				sgn=-1;
 			case '+':
-				if (last!=DATA) seti(++pc, DATA);
+				if (last!=DATA) seti(host->instr, ++pc, DATA);
 				last=DATA;
 				param[pc] += sgn;
 				break;
@@ -46,7 +47,7 @@ int parse(Host* host, const char* code){
 			case '<':
 				sgn=-1;
 			case '>':
-				if (last!=PTR) seti(++pc,  PTR);
+				if (last!=PTR) seti(host->instr, ++pc,  PTR);
 				last=PTR;
 				param[pc] += sgn;
 				break;
@@ -55,7 +56,7 @@ int parse(Host* host, const char* code){
 			case '.':
 				sgn=-1;
 			case ',':
-				if (last!=IO || sgn*param[pc]<0) seti(++pc, IO);
+				if (last!=IO || sgn*param[pc]<0) seti(host->instr, ++pc, IO);
 				last=IO;
 				param[pc] += sgn;
 				break;
@@ -63,7 +64,7 @@ int parse(Host* host, const char* code){
 			// GOTO
 			case '[':
 				last=JMP;
-				seti(++pc, JMP);
+				seti(host->instr, ++pc, JMP);
 				if(si==STACK_SIZE-1){
 					error("parse()", "stack is full!");
 					return 0;
@@ -73,7 +74,7 @@ int parse(Host* host, const char* code){
 
 			case ']':
 				last=JMP;
-				seti(++pc, JMP);
+				seti(host->instr, ++pc, JMP);
 				if(si<0){
 					error("parse()", "] without opening [");
 					return 0;
@@ -92,14 +93,14 @@ int parse(Host* host, const char* code){
 		}
 	}
 
+	// EOF
+	int end = ++pc;
+
 	// check JMPs
 	if(si>-1){
 		error("parse()", "[ without closing ]\n");
 		return 0;
 	}
-
-	// EOF
-	end=++pc;
 
 	// save instructions
 	host->instr = (char*)malloc(sizeof(char)*end);

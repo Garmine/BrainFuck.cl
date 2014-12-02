@@ -1,5 +1,9 @@
 #include "host.h"
 
+#include <stdlib.h>
+
+#include "util.h"
+
 Host* initHost(const char* src, const int dataSize){
 	// allocate new host
 	Host* h = (Host*)malloc(sizeof(Host));
@@ -8,8 +12,10 @@ Host* initHost(const char* src, const int dataSize){
 		return NULL;
 	}
 	h->data=NULL;
+	h->dLen=0;
 	h->instr=NULL;
 	h->param=NULL;
+	h->iLen=0;
 
 	// parse source code
 	if(!parse(h, src)){

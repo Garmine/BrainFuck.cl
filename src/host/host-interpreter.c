@@ -1,6 +1,8 @@
-#include "interpreter.h"
+#include "host-interpreter.h"
 
+#include "util.h"
 #include "bfio.h"
+#include "host-instructions.h"
 
 #define DEBUG 0
 
@@ -17,13 +19,13 @@ void run(Host* host){
 	int dLen = host->dLen;
 	char* instr = host->instr;
 	int* param = host->param;
-	int iLen = Host->iLen;
+	int iLen = host->iLen;
 
 	// DATA pointer
 	char* ptr = data;
 
 	int pc=0, p;
-	while(pc<end){
+	while(pc<iLen){
 		switch(geti(instr, pc)){
 			case DATA:
 				DBG(printf("%03d DATA %4d\n", pc, param[pc]));

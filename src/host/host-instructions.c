@@ -1,4 +1,4 @@
-#include "instructions.h"
+#include "host-instructions.h"
 
 // fetches instruction from instr at index i
 char geti(char* instr, int i){

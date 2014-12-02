@@ -15,7 +15,7 @@ typedef struct{
 	int iLen;
 }Host;
 
-Host* initHost(char* src);
+Host* initHost(const char* src, const int dataSize);
 void freeHost(Host* h);
 
 #endif

@@ -2,26 +2,26 @@
 #define HOST_INSTRUCTIONS_H
 
 // host instructions
-typedef enum{
+typedef enum {
 	
 	// BF: + - | BIN: 00
 	// data manipulation
-	DATA = 0;
+	DATA = 0,
 
 
 	// BF: > < | BIN: 01
 	// pointer manipulation
-	PTR  = 1;
+	PTR  = 1,
 
 
 	// BF: [ ] | BIN: 10
 	// jump to instruction (relative address)
-	JMP  = 2;
+	JMP  = 2,
 
 
 	// BF: , . | BIN: 11
 	// input/output
-	IO   = 3;
+	IO   = 3,
 	// IO is special:
 	//     0 > OUT (dot is negative)
 	//     0 = NOOP
@@ -29,7 +29,7 @@ typedef enum{
 
 
 	// special invalid value
-	NOP = 4;
+	NOP = 4
 	
 } Instruction;
 
