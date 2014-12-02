@@ -21,11 +21,11 @@ ODIR_REL = $(ODIR)/rel
 ODIR_DBG = $(ODIR)/dbg
 
 # Files
-MAIN_FILES = bfio main util
+MAIN_FILES = bfio main util init
 HOST_FILES  = host-debug host host-instructions 
 HOST_FILES += host-interpreter host-parser
 DEVICE_FILES = #device-parser
-BFAPI_FILES = #opencl_api file_api streaming_file_api
+BFAPI_FILES = opencl_api file_api streaming_file_api
 
 # Libraries
 LIBS = m
