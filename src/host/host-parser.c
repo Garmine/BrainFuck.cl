@@ -4,7 +4,6 @@
 #include "host-instructions.h"
 
 #include <string.h>
-//#include <limits.h>
 
 // stack size for parsing [ and ]
 // 1024 nested loops => THIS IS A LOT!
@@ -112,7 +111,7 @@ int parse(Host* host, const char* code){
 	
 	// save parameters
 	host->param = (int*)malloc(sizeof(int)*end*4);
-	if(!host->instr){
+	if(!host->param){
 		error("parse()", "failed to allocate memory for parameters tape");
 		return 0;
 	}
