@@ -2,7 +2,7 @@ OpenCL kernels
 ==============
 
 There's only one type of OpenCL kernel which is basically a limited BranFuck
-interpreter: every operator but the IO ones are legal: +-><[]
+interpreter: every operator but the IO ones are legal: + - > < [ ]
 
 This means that a BF code can be simplified to 3 instruction tapes, a data tape
 and 2 pointers/counters.
