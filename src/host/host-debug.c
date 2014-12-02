@@ -1,4 +1,4 @@
-#include "debug.h"
+#include "host-debug.h"
 
 #include "instructions.h"
 

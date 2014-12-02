@@ -6,9 +6,9 @@
 
 void errors(const char *type, const char *msg, const char* str);
 void error(const char *type, const char *msg);
-void ferror(const char *msg);
+void fatalError(const char *msg);
 
-char* readFile(const char* fileName)
+char* readFile(const char* fileName);
 
 #endif
 
