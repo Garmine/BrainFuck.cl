@@ -3,17 +3,21 @@
 #include "util.h"
 
 #include <stdio.h>
+#include <strings.h>
 
 #define ESC 0x1B
 
 Api calls[256];
 int init=0;
 
+void* defStates[256] = {0};
+
 int initBfio(){
 	// API 00 is reserved
 	calls[0].code=0;
 	calls[0].out=NULL;
 	calls[0].in=NULL;
+	defStates[0]=NULL;
 
 	// empty calls[]	
 	int i;
@@ -24,7 +28,7 @@ int initBfio(){
 	return 1;
 }
 
-int addApi(Api api){
+int addApi(Api api, void* defState){
 	int i = api.code;
 
 	// Check for invalid index
@@ -43,10 +47,29 @@ int addApi(Api api){
 		errors("addApi()", "Index is already being used: ", buff);
 		return 0;
 	}
+	
+	// Add default state
+	defStates[i] = defState;
 
 	// Register syscall
 	calls[i]=api;
 	return 1;
+}
+
+void* getDefStates(){
+	void* ret[256];
+
+	// Copy defStates[] structs
+	int i;
+	for(i=0; i<256; i++){
+		if(defStates[i]){
+			ret[i] = malloc(sizeof(defStates[i]));
+			memcpy(ret[i], defStates[i], sizeof(defStates[i]));
+		}else{
+			ret[i]=NULL;
+		}
+	}
+	return ret;
 }
 
 void activateApi(Host* host, int api){

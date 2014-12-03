@@ -2,22 +2,29 @@
 
 #include "bfio.h"
 
-int faIn(char* c){
+typedef struct{
+	
+}FileApiState;
+
+int faIn(Host* h, char* c){
 	return 1;
 }
 
-int faOut(char c){
+int faOut(Host* h, char c){
 	return 1;
 }
 
 int initFileApi(){
+	// Default state black magic
+	FileApiState* def = 
+		(FileApiState*)malloc(sizeof(FileApiState));
 
 	// Add API to BFIO
 	Api api;
 	api.code = 2;
 	api.out  = faOut;
 	api.in   = faIn;
-	addApi(api);
+	if (!addApi(api, (void*)def)) return 0;
 
 	return 1;
 }

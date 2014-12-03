@@ -38,15 +38,25 @@ Host* initHost(const char* src, const int dataSize){
 	h->esc=0;
 	h->out=NULL;
 	h->in=NULL;
+	memcpy(h->apiStates, getDefStates(), sizeof(void*)*256);
 
 	// w00t
 	return h;
 }
 
 void freeHost(Host* h){
+	// free tapes
 	free(h->data);
 	free(h->instr);
 	free(h->param);
+
+	// free states and such
+	int i;
+	for(i=0; i<256; i++)
+		if(h->apiStates[i])
+			free(h->apiStates[i]);
+
+	// free skeleton
 	free(h);
 }
 
