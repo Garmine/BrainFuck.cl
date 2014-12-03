@@ -9,10 +9,17 @@ typedef struct{
 	
 }OpenClApiState;
 
+// Host->State extractor
+OpenClApiState* state(Host* h){
+	return (OpenClApiState*)(h->apiStates[API_CODE]);
+}
+
+// stdin:  host <-- API
 int ocaIn(Host* h, char* c){
 	return 1;
 }
 
+// stdout: host --> API
 int ocaOut(Host* h, char c){
 	return 1;
 }

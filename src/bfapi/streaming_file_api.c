@@ -9,10 +9,17 @@ typedef struct{
 	
 }StreamingFileApiState;
 
+// Host->State extractor
+StreamingFileApiState* state(Host* h){
+	return (StreamingFileApiState*)(h->apiStates[API_CODE]);
+}
+
+// stdin:  host <-- API
 int sfaIn(Host* h, char* c){
 	return 1;
 }
 
+// stdout: host --> API
 int sfaOut(Host* h, char c){
 	return 1;
 }
