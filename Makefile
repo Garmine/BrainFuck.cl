@@ -28,7 +28,7 @@ DEVICE_FILES = #device-parser
 BFAPI_FILES = opencl_api file_api streaming_file_api
 
 # Libraries
-LIBS = m
+LIBS = 
 
 # ----- ----- ----- ----- ----- ----- #
 
@@ -62,16 +62,20 @@ EFLAGS = -msse -msse2 -msse3 -mmmx -m3dnow
 
 # ----- ----- ----- ----- ----- ----- #
 
-.PHONY: clean help
+.PHONY: clean help init
 
 all: rel
 
 # ----- #
 
 help:
-	@echo "Targets:
+	@echo "Targets:"
 	@echo "    rel - release build"
 	@echo "    dbg - debug build"
+	@echo "Build init on the very first run!"
+
+init:
+	mkdir $(ODIR) $(ODIR_REL) $(ODIR_DBG) $(BINDIR)
 
 # ----- #
 
