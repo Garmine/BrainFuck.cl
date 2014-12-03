@@ -3,6 +3,8 @@
 #include "bfio.h"
 #include <stdlib.h>
 
+#define API_CODE 1
+
 typedef struct{
 	
 }OpenClApiState;
@@ -22,7 +24,7 @@ int initOpenClApi(){
 
 	// Add API to BFIO
 	Api api;
-	api.code = 1;
+	api.code = API_CODE;
 	api.out  = ocaOut;
 	api.in   = ocaIn;
 	if (!addApi(api, (void*)def)) return 0;

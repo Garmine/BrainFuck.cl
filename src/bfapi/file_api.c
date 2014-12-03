@@ -3,6 +3,8 @@
 #include "bfio.h"
 #include <stdlib.h>
 
+#define API_CODE 2
+
 typedef struct{
 	
 }FileApiState;
@@ -22,7 +24,7 @@ int initFileApi(){
 
 	// Add API to BFIO
 	Api api;
-	api.code = 2;
+	api.code = API_CODE;
 	api.out  = faOut;
 	api.in   = faIn;
 	if (!addApi(api, (void*)def)) return 0;
