@@ -13,8 +13,9 @@ typedef struct{
 }Api;
 
 int initBfio();
+int terminateBfio();
 
-int addApi(Api api);
+int addApi(Api api, void* defState);
 
 void* getDefStates();
 

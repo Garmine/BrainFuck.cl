@@ -1,9 +1,11 @@
 #include "host.h"
 
-#include <stdlib.h>
-
 #include "util.h"
 #include "host-parser.h"
+#include "bfio.h"
+
+#include <stdlib.h>
+#include <string.h>
 
 Host* initHost(const char* src, const int dataSize){
 	// allocate new host
@@ -38,7 +40,11 @@ Host* initHost(const char* src, const int dataSize){
 	h->esc=0;
 	h->out=NULL;
 	h->in=NULL;
-	memcpy(h->apiStates, getDefStates(), sizeof(void*)*256);
+
+	// API thingies
+	void* defStates = getDefStates();
+	memcpy(h->apiStates, defStates, sizeof(void*)*256);
+	free(defStates);
 
 	// w00t
 	return h;
@@ -50,7 +56,7 @@ void freeHost(Host* h){
 	free(h->instr);
 	free(h->param);
 
-	// free states and such
+	// free API states and such
 	int i;
 	for(i=0; i<256; i++)
 		if(h->apiStates[i])

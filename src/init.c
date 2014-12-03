@@ -31,3 +31,13 @@ int initBrainfuckDotCl(){
 	return 1;
 }
 
+int terminateBrainfuckDotCl(){
+	int s=1;
+	if(!terminateBfio()){
+		error("terminateBrainfuckDotCl()", "failed to terminal I/O");
+		s=0;
+	}
+
+	return 1;
+}
+

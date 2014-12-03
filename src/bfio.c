@@ -3,7 +3,8 @@
 #include "util.h"
 
 #include <stdio.h>
-#include <strings.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define ESC 0x1B
 
@@ -25,6 +26,16 @@ int initBfio(){
 
 	// initalization successful
 	init=1;
+	return 1;
+}
+
+int terminateBfio(){
+	// free default API state structs
+	int i;
+	for(i=0; i<256; i++)
+		if(defStates[i])
+			free(defStates[i]);
+
 	return 1;
 }
 
@@ -57,7 +68,7 @@ int addApi(Api api, void* defState){
 }
 
 void* getDefStates(){
-	void* ret[256];
+	void** ret = (void*)malloc(sizeof(void*)*256);
 
 	// Copy defStates[] structs
 	int i;
@@ -81,7 +92,7 @@ char input(Host* host){
 	if(host->in){
 		// read char from API
 		char c;
-		if (!host->in(&c)) activateApi(host, 0);
+		if (!host->in(host, &c)) activateApi(host, 0);
 		return c;
 	}else{
 		// read char from stdin
@@ -92,7 +103,7 @@ char input(Host* host){
 void output(Host* host, char c){
 	if(host->out){
 		// send c to API
-		if (!host->out(c)) activateApi(host, 0);
+		if (!host->out(host, c)) activateApi(host, 0);
 	}else{
 		// out == stdout => API call detection
 

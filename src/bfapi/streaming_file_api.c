@@ -1,6 +1,7 @@
 #include "streaming_file_api.h"
 
 #include "bfio.h"
+#include <stdlib.h>
 
 typedef struct{
 	
