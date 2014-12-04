@@ -31,7 +31,6 @@ int main(int argc, char** argv){
 		terminateBrainfuckDotCl();
 		fatalError("BrainFuck program terminated unexpectedly.");
 	}
-		
 
 
 	// KTHXBAI
