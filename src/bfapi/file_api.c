@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "util.h"
+#include <string.h>
+
 #define API_CODE 2
 
 // MODE - file access: R/W/A
@@ -78,10 +81,10 @@ static int out(Host* h, char c){
 			if(c=='\0'){
 
 				// Open file according to selected mode
-				FILE* f;
+				FILE* f = NULL;
 				switch(st->m){
 					case R:
-						f=fopen(st->buff, "r");
+						if (st->len!=0) f=fopen(st->buff, "r");
 						break;
 					case W:
 						f=fopen(st->buff, "w");
@@ -92,29 +95,53 @@ static int out(Host* h, char c){
 				}
 
 				// Read/write from/to DATA tape
-				int n=st->len;
+				long n=st->len;
+				char* ptr = h->ptr;
 				if(st->m==R){
-					// TODO:
-					// read n bytes OR
-					// read 'till 0
-					// TO tape
+					// Read file
+					char* buff = NULL;
 					if(n==0){
-						//char *p = h->;
-						//while(c
+						// Read whole file
+						n = readFile(st->buff, &buff);
+					}
+
+					// Size check
+					if(ptr+n > h->data+h->dLen){
+						// file cannot fit on DATA tape!
+						error("file API", 
+								"file cannot fit on DATA tape!");
+						return -1;
+					}
+
+					// Read file
+					if(buff!=NULL){
+						// Finish reading whole file
+						memcpy(ptr, buff, n);
 					}else{
-						
+						// Read first n bytes
+						if(ptr+n > h->data+h->dLen){
+							// file cannot fit on DATA tape!
+							error("file API", 
+									"file cannot fit on DATA tape!");
+							return -1;
+						}
+						while (n--) *(ptr++)=fgetc(f);
 					}
 				}else{
+					// Write file
 					if(n==0){
-						
+						// Write 'till '\0'
+						// TODO
 					}else{
-						
+						// Write n bytes
+						// TODO
 					}
 				}
-			}
 
-			// Rinse & repeat!
-			st->s=MODE;
+				// Rinse & repeat!
+				if (f!=NULL) fclose(f);
+				st->s=MODE;
+			}
 			break;
 	}
 	return 1;
