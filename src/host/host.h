@@ -10,6 +10,8 @@ typedef struct Host Host;
 struct Host{
 	// data tape
 	char *data;
+	// data pointer
+	char *ptr;
 	// size of data tape
 	int dLen;
 

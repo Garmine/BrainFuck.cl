@@ -3,7 +3,7 @@
 
 #include "host.h"
 
-void run(Host* host);
+int run(Host* host, int debug);
 
 #endif
 

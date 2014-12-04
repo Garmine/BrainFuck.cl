@@ -16,6 +16,7 @@ Host* initHost(const char* src, const int dataSize){
 	}
 	h->data=NULL;
 	h->dLen=0;
+	h->ptr=NULL;
 	h->instr=NULL;
 	h->param=NULL;
 	h->iLen=0;
@@ -34,6 +35,7 @@ Host* initHost(const char* src, const int dataSize){
 		freeHost(h);
 		return NULL;
 	}
+	h->ptr=h->data;
 	h->dLen = dataSize;
 
 	// STDIO thingies
