@@ -2,6 +2,7 @@
 #define INIT_H
 
 int initBrainfuckDotCl();
+int terminateBrainfuckDotCl();
 
 #endif
 

@@ -26,11 +26,17 @@ int main(int argc, char** argv){
 
 
 	// Run host
-	run(host);
+	if(!run(host, 0)){
+		freeHost(host);
+		terminateBrainfuckDotCl();
+		fatalError("BrainFuck program terminated unexpectedly.");
+	}
+		
 
 
 	// KTHXBAI
 	freeHost(host);
+	terminateBrainfuckDotCl();
 	return 0;
 }
 
