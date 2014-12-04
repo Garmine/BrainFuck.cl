@@ -9,4 +9,7 @@ find -name 'Makefile' | xargs wc -l
 echo 
 echo "Documentation files LoC:"
 find -name '*.md' | xargs wc -l
+echo
+echo "BrainFuck files LoC:"
+find -name '*.bf' | xargs wc -l
 
