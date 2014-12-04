@@ -2,16 +2,19 @@
 
 #include "bfio.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 #define API_CODE 2
 
-// MODE SELECT: R/W/A
-// LENGTH, FILENAME, I/O
+// MODE - file access: R/W/A
+// LENGTH, FILENAME
+// execution starts in FN
 typedef enum{
 	MODE,
-	LEN, FN, IO
+	LEN, FN
 }State;
 
+// File access modes:
 // READ, WRITE, APPEND
 typedef enum{
 	R, W, A
@@ -25,22 +28,22 @@ typedef struct{
 	// filename
 	char buff[256];
 	int bi;
-}FileApiState;
+}ApiState;
 
 // Host->State extractor
-FileApiState* state(Host* h){
-	return (FileApiState*)(h->apiStates[API_CODE]);
+static ApiState* state(Host* h){
+	return (ApiState*)(h->apiStates[API_CODE]);
 }
 
 // stdin:  host <-- API
-int faIn(Host* h, char* c){
-	c=getchar();
+static int in(Host* h, char* c){
+	*c=(char)getchar();
 	return 1;
 }
 
 // stdout: host --> API
-int faOut(Host* h, char c){
-	FileApiState* st = state(h);
+static int out(Host* h, char c){
+	ApiState* st = state(h);
 	switch(st->s){
 		case MODE:
 			// Mode parameter
@@ -95,11 +98,18 @@ int faOut(Host* h, char c){
 					// read n bytes OR
 					// read 'till 0
 					// TO tape
+					if(n==0){
+						//char *p = h->;
+						//while(c
+					}else{
+						
+					}
 				}else{
-					// TODO:
-					// write n bytes OR
-					// write 'till 0
-					// FROM tape
+					if(n==0){
+						
+					}else{
+						
+					}
 				}
 			}
 
@@ -110,17 +120,18 @@ int faOut(Host* h, char c){
 	return 1;
 }
 
+
 int initFileApi(){
 	// Default state black magic
-	FileApiState* def = 
-		(FileApiState*)malloc(sizeof(FileApiState));
+	ApiState* def = 
+		(ApiState*)malloc(sizeof(ApiState));
 	def->s = MODE;
 
 	// Add API to BFIO
 	Api api;
 	api.code = API_CODE;
-	api.out  = faOut;
-	api.in   = faIn;
+	api.out  = out;
+	api.in   = in;
 	if (!addApi(api, (void*)def)) return 0;
 
 	return 1;
