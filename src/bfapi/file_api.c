@@ -131,10 +131,10 @@ static int out(Host* h, char c){
 					// Write file
 					if(n==0){
 						// Write 'till '\0'
-						// TODO
+						while (*ptr!='\0') fputc(*(ptr++), f);
 					}else{
 						// Write n bytes
-						// TODO
+						while (n--) fputc(*(ptr++), f);
 					}
 				}
 

@@ -13,8 +13,6 @@ TODO
 ###APIs
 * write OpenCL API
 * write streaming file API
-* finish file API
-  * add write support
 * write tests for APIs
   * OpenCL API
   * file API
