@@ -88,24 +88,29 @@ void activateApi(Host* host, int api){
 	host->in=calls[api].in;
 }
 
-char input(Host* host){
+int input(Host* host){
 	if(host->in){
 		// read char from API
-		char c;
-		if (!host->in(host, &c)) activateApi(host, 0);
-		return c;
+		int r = host->in(host, host->ptr);
+		if (r==0) activateApi(host, 0);
+		return r;
 	}else{
 		// read char from stdin
-		return getchar();
+		*host->ptr=getchar();
+		return 1;
 	}
 }
 
-void output(Host* host, char c){
+int output(Host* host){
 	if(host->out){
-		// send c to API
-		if (!host->out(host, c)) activateApi(host, 0);
+		// send data[ptr] to API
+		int r = host->out(host, *host->ptr);
+		if (r==0) activateApi(host, 0);
+		return r;
 	}else{
 		// out == stdout => API call detection
+
+		char c = *host->ptr;
 
 		// ESC detection
 		if(host->esc==2){
@@ -132,5 +137,6 @@ void output(Host* host, char c){
 			putchar(c);
 		}
 	}
+	return 1;
 }
 

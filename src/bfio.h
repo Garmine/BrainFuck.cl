@@ -19,8 +19,8 @@ int addApi(Api api, void* defState);
 
 void* getDefStates();
 
-char input(Host* host);
-void output(Host* host, char c);
+int input(Host* host);
+int output(Host* host);
 
 #endif
 

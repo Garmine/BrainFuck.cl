@@ -27,7 +27,7 @@ int run(Host* host, int debug){
 				*ptr += param[pc];
 				if (*ptr<data || *ptr>=&data[dLen]){
 					printf("\n");
-					error("interpreter", "pointer out of range "
+					error("interpreter: DATA", "pointer out of range "
 							"(data tape is too short?)");
 					return 0;
 				}
@@ -36,8 +36,9 @@ int run(Host* host, int debug){
 			case JMP:
 				if (debug) printf("%03d  JMP %4d", pc, param[pc]);
 				p=param[pc];
+				//   JMP back: ]   ||  JMP forward: [
 				if( (p<0 && **ptr) || (p>0 && !**ptr) ){
-					pc += param[pc]-1;
+					pc += p-1;
 					if (debug) printf(" - GOTO %03d\n---", pc+1);
 				}
 				if (debug) printf("\n");
@@ -47,11 +48,23 @@ int run(Host* host, int debug){
 				if (debug) printf("%03d   IO %4d", pc, param[pc]);
 				p=param[pc];
 				if(p>0){
-					if (debug) printf(" - READ: \n");
-					while (p--) **ptr=input(host);
+					if (debug) printf(" - READ: \n");					
+					// read stdin to data[ptr] param times
+					while(p--){
+						if(input(host)<0){
+							error("interpreter: IO", "BF input failed");
+							return 0;
+						}
+					}
 				}else{
 					if (debug) printf(" - WRITE '");
-					while (p++) output(host, **ptr);
+					// output data[ptr] param times
+					while(p++){
+						if(output(host)<0){
+							error("interpreter: IO", "BF output failed");
+							return 0;
+						}
+					}
 					if (debug) printf("'\n");
 				}
 				break;
@@ -59,7 +72,7 @@ int run(Host* host, int debug){
 		pc++;
 	}
 
-	// Completed program
+	// Successfully completed program
 	return 1;
 }
 
