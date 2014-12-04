@@ -20,3 +20,10 @@ TODO
   * file API
   * streaming file API
 
+##Main
+* parse argv
+* params:
+  * brainfuck src file
+  * data tape size
+  * debug
+
