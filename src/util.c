@@ -13,17 +13,18 @@ void fatalError(const char *msg){
 	exit(EXIT_FAILURE);
 }
 
-char* readFile(const char* fileName){
+long readFile(const char* fileName, char** dst){
 	// open file
 	FILE* f = fopen(fileName, "r");
 	if(!f){
 		errors("readFile()", "couldn't open file: ", fileName);
-		return NULL;
+		*dst = NULL;
+		return 0;
 	}
 
 	// find size of file
 	fseek(f, 0L, SEEK_END);
-	int size = ftell(f);
+	long size = ftell(f);
 	rewind(f);
 
 	// allocate buffer
@@ -31,19 +32,24 @@ char* readFile(const char* fileName){
 	if(!buffer){
 		error("readFile()", "couldn't allocate memory for buffer");
 		fclose(f);
-		return NULL;
+		*dst = NULL;
+		return 0;
 	}
 
 	// read in file
 	if(fread(buffer, size, 1, f) != 1){
 		errors("readFile()", "couldn't read file: ", fileName);
 		fclose(f);
-		return NULL;
+		*dst = NULL;
+		return 0;
 	}
 	fclose(f);
 
-	// return read in file
+	// set dst to read in file
 	buffer[size]='\0';
-	return buffer;
+	*dst = buffer;
+
+	// return number read in bytes
+	return size+1;
 }
 

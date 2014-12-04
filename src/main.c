@@ -13,8 +13,8 @@ int main(int argc, char** argv){
 
 
 	// Read in some BF code from some file
-	char* code = readFile("bf/cat.bf");
-	if(code==NULL)
+	char* code = NULL;
+	if(!readFile("bf/cat.bf", &code))
 		fatalError("Failed to read in BF code");
 
 		

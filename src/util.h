@@ -8,7 +8,7 @@ void errors(const char *type, const char *msg, const char* str);
 void error(const char *type, const char *msg);
 void fatalError(const char *msg);
 
-char* readFile(const char* fileName);
+long readFile(const char* fileName, char** dst);
 
 #endif
 
